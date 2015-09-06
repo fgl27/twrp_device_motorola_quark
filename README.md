@@ -16,3 +16,6 @@ MicroSD | No
 Battery | Non-removable Li-Po 3900 mAh battery
 Display | 1440 x 2560 pixels, 5.2 inches (~565 ppi pixel density)
 Camera  | 21 MP (5248 x 3936), autofocus, dual-LED flash
+
+
+![MAXX](https://dl.dropboxusercontent.com/u/281742759/maxx/novo-moto-maxx-1.jpg "MAXX")
