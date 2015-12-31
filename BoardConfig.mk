@@ -29,11 +29,10 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
-TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Kernel
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags utags.backup=/dev/block/platform/msm_sdcc.1/by-name/utagsBackup
+BOARD_KERNEL_CMDLINE := BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
@@ -41,8 +40,10 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/quark/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x01000000 --second_offset 0x0f00000 --tags_offset 0x0000100 --dt device/motorola/quark/dtb
 TARGET_PREBUILT_KERNEL := device/motorola/quark/kernel
-#if the above does not work change to below to build kernel from source
-#kernel from source
+#if the above does not work uncomment below to build kernel from source
+# clone CM kernel tree https://github.com/CyanogenMod/android_kernel_motorola_apq8084/
+# and https://github.com/CyanogenMod/android_device_qcom_common
+#kernel from source start
 #BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 #TARGET_KERNEL_SOURCE := kernel/motorola/apq8084
 #TARGET_KERNEL_CONFIG := quark_defconfig
@@ -73,4 +74,6 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_INCLUDE_CRYPTO := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 BOARD_SUPPRESS_SECURE_ERASE := true
-ANDROID_COMMON_BUILD_MK = true
+ANDROID_COMMON_BUILD_MK := true
+TW_DEFAULT_BRIGHTNESS := 63
+TARGET_RECOVERY_QCOM_RTC_FIX := true

@@ -19,3 +19,7 @@ Camera  | 21 MP (5248 x 3936), autofocus, dual-LED flash
 
 
 ![MAXX](https://dl.dropboxusercontent.com/u/281742759/maxx/novo-moto-maxx-1.jpg "MAXX")
+
+Tree ported from CM.
+
+Copyright 2015 - The CyanogenMod Project
