@@ -1,6 +1,22 @@
 on init
-    # Brightness
+    # low Brightness
     write /sys/class/leds/lcd-backlight/brightness 63
+    mkdir /firmware
+    mkdir /vendor
+    mkdir /vendor/firmware
+    mkdir /vendor/firmware/keymaster
+    wait /dev/block/platform/msm_sdcc.1/by-name/modem
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/modem /firmware
+    symlink /firmware/image/keymaster.b00 /vendor/firmware/keymaster/keymaster.b00
+    symlink /firmware/image/keymaster.b01 /vendor/firmware/keymaster/keymaster.b01
+    symlink /firmware/image/keymaster.b02 /vendor/firmware/keymaster/keymaster.b02
+    symlink /firmware/image/keymaster.b03 /vendor/firmware/keymaster/keymaster.b03
+    symlink /firmware/image/keymaster.mdt /vendor/firmware/keymaster/keymaster.mdt
+    symlink /firmware/image/cmnlib.b00 /vendor/firmware/cmnlib.b00
+    symlink /firmware/image/cmnlib.b01 /vendor/firmware/cmnlib.b01
+    symlink /firmware/image/cmnlib.b02 /vendor/firmware/cmnlib.b02
+    symlink /firmware/image/cmnlib.b03 /vendor/firmware/cmnlib.b03
+    symlink /firmware/image/cmnlib.mdt /vendor/firmware/cmnlib.mdt
 
 on boot
     # Enable Power modes and set the CPU Freq Sampling rates
