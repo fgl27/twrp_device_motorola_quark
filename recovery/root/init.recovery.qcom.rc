@@ -1,6 +1,5 @@
 on init
-    # low Brightness
-    write /sys/class/leds/lcd-backlight/brightness 63
+    # dencryption files from device
     mkdir /firmware
     mkdir /vendor
     mkdir /vendor/firmware
@@ -17,6 +16,11 @@ on init
     symlink /firmware/image/cmnlib.b02 /vendor/firmware/cmnlib.b02
     symlink /firmware/image/cmnlib.b03 /vendor/firmware/cmnlib.b03
     symlink /firmware/image/cmnlib.mdt /vendor/firmware/cmnlib.mdt
+    # low Brightness durring boot
+    write /sys/class/leds/lcd-backlight/brightness 63
+    # ena DT2W and S2W
+    write /android_touch/doubletap2wake 1
+    write /android_touch/sweep2wake 15
 
 on boot
     # Enable Power modes and set the CPU Freq Sampling rates
@@ -59,3 +63,4 @@ on property:recovery.perf.mode=1
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
 
+    start permissivemode
