@@ -8,17 +8,24 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
+TARGET_CPU_SMP := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
+
+# Platform
+TARGET_BOARD_PLATFORM := msm8084
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
 
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE -DNO_SECURE_DISCARD
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M androidboot.selinux=permissive user_debug=23
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
-#Kernel pre mande
+#Kernel pre-made
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/quark/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x01000000 --second_offset 0x0f00000 --tags_offset 0x0000100 --dt device/motorola/quark/dtb
 TARGET_PREBUILT_KERNEL := device/motorola/quark/kernel
@@ -43,7 +50,7 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 3539992576
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-# Init the devices boots under 1s but just in case it is hot and charging...
+# Init of the devices boots under 1s but just in case it is hot and charging...
 TARGET_INCREASES_COLDBOOT_TIMEOUT := true
 
 # TWRP
@@ -51,11 +58,20 @@ TW_THEME := portrait_hdpi
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_INCLUDE_CRYPTO := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/f9200000.ssusb/f9200000.dwc3/gadget/lun%d/file"
+TW_BRIGHTNESS_PATH := "/sys/devices/fd900000.qcom\x2cmdss_mdp/qcom\x2cmdss_fb_primary.163/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 63
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_EXTRA_LANGUAGES := true
 TW_EXCLUDE_SUPERSU := true
 TW_INCLUDE_NTFS_3G := true
+
+# Encryption
+TARGET_HW_DISK_ENCRYPTION := true
+TW_INCLUDE_CRYPTO := true
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+TARGET_USES_LOGD := true
+TWRP_INCLUDE_LOGCAT := true
