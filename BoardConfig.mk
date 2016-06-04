@@ -29,9 +29,9 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/quark/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x01000000 --second_offset 0x0f00000 --tags_offset 0x0000100 --dt device/motorola/quark/dtb
 TARGET_PREBUILT_KERNEL := device/motorola/quark/kernel
-#if the above does not work uncomment below to build kernel from source
-# clone CM kernel tree https://github.com/CyanogenMod/android_kernel_motorola_apq8084/
-# and https://github.com/CyanogenMod/android_device_qcom_common
+#if the prebuild kernel not work make a new one use as base my tree or check CM/Motorola
+# my tree https://github.com/bhb27/android_kernel_motorola_apq8084/commits/TWRP
+# to build the kernel run how_to_build_this.sh
 #kernel from source start
 #BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 #TARGET_KERNEL_SOURCE := kernel/motorola/apq8084
@@ -61,7 +61,7 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/f9200000.ssusb/f9200000.dwc3/gadget/lun%d/file"
-TW_BRIGHTNESS_PATH := "/sys/devices/fd900000.qcom\x2cmdss_mdp/qcom\x2cmdss_fb_primary.163/leds/lcd-backlight/brightness"
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 63
 TARGET_RECOVERY_QCOM_RTC_FIX := true
@@ -70,6 +70,7 @@ TW_EXCLUDE_SUPERSU := true
 TW_INCLUDE_NTFS_3G := true
 
 # Encryption
+TARGET_CRYPTFS_HW_PATH := device/motorola/quark/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION := true
 TW_INCLUDE_CRYPTO := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
