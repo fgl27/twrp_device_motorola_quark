@@ -15,11 +15,6 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOARD_PLATFORM := msm8084
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
 
-# Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
-COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE -DNO_SECURE_DISCARD
-
 # Kernel
 BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M androidboot.selinux=permissive user_debug=23
 BOARD_KERNEL_BASE := 0x00000000
@@ -76,3 +71,25 @@ TW_INCLUDE_CRYPTO := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TARGET_USES_LOGD := true
 TWRP_INCLUDE_LOGCAT := true
+
+# MultiROM config. MultiROM also uses parts of TWRP config
+MR_INPUT_TYPE := type_b
+MR_INIT_DEVICES := device/motorola/quark/multirom/mr_init_devices.c
+MR_DEVICE_HOOKS := device/motorola/quark/multirom/mr_hooks.c
+MR_DEVICE_HOOKS_VER := 5
+MR_DPI := xxhdpi
+MR_DPI_FONT := 435
+MR_USE_MROM_FSTAB := true
+MR_FSTAB := device/motorola/quark/multirom/mrom.fstab
+MR_KEXEC_MEM_MIN := 0x20000000
+MR_KEXEC_DTB := true
+MR_PIXEL_FORMAT := "RGB_565"
+TARGET_RECOVERY_IS_MULTIROM := true
+#MR_ENCRYPTION := true
+#MR_ENCRYPTION_SETUP_SCRIPT := device/moto/shamu/multirom/mr_cp_crypto.sh
+#MR_USE_QCOM_OVERLAY := true
+#MR_QCOM_OVERLAY_HEADER := device/motorola/quark/multirom/mr_qcom_overlay.h
+#MR_QCOM_OVERLAY_CUSTOM_PIXEL_FORMAT := MDP_RGBX_8888
+#MR_QCOM_OVERLAY_USE_VSYNC := true
+MR_ALLOW_NKK71_NOKEXEC_WORKAROUND := true
+MR_NO_KEXEC := 1
