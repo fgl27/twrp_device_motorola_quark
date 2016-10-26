@@ -24,19 +24,19 @@ on init
     write /sys/android_touch/doubletap2wake 1
     write /sys/android_touch/sweep2wake 15
 
-    #GPU max clock at 500Mhz enable adreno idler
-    write /sys/devices/fdb00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk 500000000
+    #GPU max clock at 400Mhz enable adreno idler
+    write /sys/devices/fdb00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk 400000000
     write /sys/module/adreno_idler/parameters/adreno_idler_active Y
 
     # I-O/fsync/crc for better read/write performance
-    write /sys/block/mmcblk0/queue/scheduler bfq
+    write /sys/block/mmcblk0/queue/scheduler maple
     write /sys/module/sync/parameters/fsync_enabled N
     write /sys/module/mmc_core/parameters/crc 0
 
     # Configure the cpu-boost module
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
+    write /sys/module/cpu_boost/parameters/input_boost_freq 1728000
     write /sys/module/cpu_boost/parameters/boost_ms 20
-    write /sys/module/cpu_boost/parameters/input_boost_ms 500
+    write /sys/module/cpu_boost/parameters/input_boost_ms 800
 
     #sync_threshold use stock value
     write /sys/module/cpu_boost/parameters/sync_threshold 1728000
@@ -46,17 +46,22 @@ on init
     write /sys/module/msm_thermal/parameters/limit_temp_degC 65
     write /sys/module/msm_thermal/parameters/enabled Y
 
-    #Hot plug as mpdecision is a bin this is need to enable
-    write /sys/module/blu_plug/parameters/enabled 1
-    write /sys/module/blu_plug/parameters/min_online 2
-    write /sys/module/cpu_boost/parameters/hotplug_boost 0
+    #set stock freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq  644 
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 2649600
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq  644 
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 2649600
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq  644 
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2649600
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq  644 
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 2649600
 
-    # Set impulse and state
+    # Set interactive and state
     write /sys/module/state_notifier/parameters/enabled 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor impulse
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor impulse
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor impulse
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
 
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/lpm_levels/enable_low_power/l2 4
@@ -73,5 +78,15 @@ on init
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
 
+    #Hot plug as mpdecision is a bin this is need to enable
+    write /sys/module/blu_plug/parameters/enabled 1
+    write /sys/module/cpu_boost/parameters/hotplug_boost 0
+
 # encryption support
 service qseecomd /sbin/qseecomd
+    class core
+    disabled
+    user root
+
+on property:ro.crypto.state=encrypted
+    start qseecomd
