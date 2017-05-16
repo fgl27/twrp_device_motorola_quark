@@ -1,6 +1,11 @@
 Device configuration for Moto MAXX (Quark) To compile TWRP on omni source
 ===========================================
 
+crrrent building on omni6.0 source using twrp 7.1 branch
+
+	<remove-project path="bootable/recovery" name="android_bootable_recovery" remote="omnirom" revision="android-6.0" groups="pdk-cw-fs"/>
+	<project path="bootable/recovery" name="android_bootable_recovery" remote="omnirom" revision="android-7.1" groups="pdk-cw-fs"/>
+
 The Motorola Moto Maxx (codenamed _"quark"_) is a high-end smartphone from Motorola mobility.
 It was announced on November 2014.
 
