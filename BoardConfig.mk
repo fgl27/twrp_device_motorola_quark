@@ -16,21 +16,20 @@ TARGET_BOARD_PLATFORM := apq8084
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
 
 # Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp -ffast-math -fweb
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp -ffast-math -fweb
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M  androidboot.selinux=permissive user_debug=23
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
-#Kernel pre-made
+#Kernel pre-build
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/quark/mkbootimg.mk
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/motorola/quark/dtb
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_PREBUILT_KERNEL := device/motorola/quark/kernel
-#if the prebuild kernel not work make a new one use as base my tree or check CM/Motorola
-# my tree https://github.com/bhb27/android_kernel_motorola_apq8084/commits/TWRP
-# to build the kernel run how_to_build_this.sh
+TARGET_PREBUILT_DTB := device/motorola/quark/dtb
+#kernel tree https://github.com/bhb27/BHB27Kernel/commits/N_Custom
 #kernel from source start
 #BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 #TARGET_KERNEL_SOURCE := kernel/motorola/apq8084
